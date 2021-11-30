@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIML_ARDENT</title>
+</head>
+<body>
+
+    <form method="post" action="/processingImage" enctype="multipart/form-data">
+        <dl><h3 class="mt-5">Image</h3>
+            <fieldset>
+            <legend>Select Detecting Model For Image</legend>
+            <label>
+                <input type="radio" value="Pose" name="ImageModel" />
+                Pose Detection
+            </label>
+            <label>
+                <input type="radio" value="Sentiment" name="ImageModel" />
+                Sentiment Analysis
+            </label>
+            </fieldset>
+            <p>
+            <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+            <p>
+            <input type="submit" value="Submit" >
+            </p>
+        </dl>
+    </form>
+    {% if filename %}
+    <div>
+    <img src="{{ url_for('display_image', filename=filename) }}" width="100%">
+    </div>
+    {% endif %}
+    <form method="post" action="/processingVideo" enctype="multipart/form-data">
+        <dl><h3 class="mt-5">Video</h3>
+            <fieldset>
+            <legend>Select Detecting Model For Video</legend>
+            <label>
+                <input type="radio" value="Pose" name="VideoModel" />
+                Pose Detection
+            </label>
+            <label>
+                <input type="radio" value="Sentiment" name="VideoModel" />
+                Sentiment Analysis
+            </label>
+            </fieldset>
+            <p>
+            <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+            <p>
+            <input type="submit" value="Submit" >
+            </p>
+        </dl>
+    </form>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+            <form method="post" action="/video_feed">
+            <legend><h3 class="mt-5">Live Streaming</h3></legend>
+            <fieldset>
+            <legend>Select Detecting Model For Video</legend>
+            <label>
+                <input type="radio" value="Pose" name="LiveModel" />
+                Pose Detection
+            </label>
+            <label>
+                <input type="radio" value="Sentiment" name="LiveModel" />
+                Sentiment Analysis
+            </label>
+            </fieldset>
+            <input type="submit" value="LIVE" name="action1"/>
+            </form>
+            <img src="{{ url_for('video_feed') }}" height="100%" onerror='this.style.display = "none"'>
+            <img src="{{ url_for('video_frame') }}" height="100%" onerror='this.style.display = "none"'>
+        </div>
+    </div>
+</div>
+</body>
+</html>
