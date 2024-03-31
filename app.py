@@ -1,6 +1,5 @@
 from flask import Flask, redirect, url_for, request, render_template, flash, Response
 from werkzeug.utils import secure_filename
-import SentimentModule as sm
 import PoseModule as pm
 import os
 import cv2
@@ -24,11 +23,7 @@ def home():
 
 @app.route('/processingImage', methods=['POST'])
 def image_frame():
-    model = request.form['ImageModel']
-    if model == "Sentiment":
-        detector = sm.sentimentDetector()
-    elif model == "Pose":
-        detector = pm.poseDetector()
+
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
@@ -40,6 +35,7 @@ def image_frame():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         cap = cv2.imread('./static/uploads/' + filename)
+        detector = pm.poseDetector()
         img = detector.findC(cap)
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         plt.savefig('./static/uploads/' + filename)
@@ -55,11 +51,7 @@ def display_image(filename):
 
 @app.route('/processingVideo', methods=['POST'])
 def video_frame():
-    model = request.form['VideoModel']
-    if model == "Sentiment":
-        detector = sm.sentimentDetector()
-    elif model == "Pose":
-        detector = pm.poseDetector()
+
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
@@ -71,6 +63,7 @@ def video_frame():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         files = './static/uploads/' + filename
+        detector = pm.poseDetector()
         return Response(video(files,detector), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 def video(files, detector):
@@ -90,11 +83,8 @@ def video(files, detector):
 
 @app.route('/video_feed', methods=['GET', 'POST'])
 def video_feed():
-    model = request.form['LiveModel']
-    if model == "Sentiment":
-        detector = sm.sentimentDetector()
-    elif model == "Pose":
-        detector = pm.poseDetector()
+
+    detector = pm.poseDetector()
     if request.method == 'POST':
         if request.form.get('action1') == 'LIVE':
             return Response(gen_frames(detector), mimetype='multipart/x-mixed-replace; boundary=frame')

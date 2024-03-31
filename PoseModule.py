@@ -13,7 +13,7 @@ class poseDetector():
 
         self.mpDraw=mp.solutions.drawing_utils
         self.mpPose=mp.solutions.pose
-        self.pose=self.mpPose.Pose()
+        self.pose=self.mpPose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
     def findC (self, img, draw=True):
 

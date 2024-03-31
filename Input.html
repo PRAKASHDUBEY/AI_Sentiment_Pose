@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIML_ARDENT</title>
+    <title>Pose Detector</title>
 </head>
 <body>
 
     <form method="post" action="/processingImage" enctype="multipart/form-data">
         <dl><h3 class="mt-5">Image</h3>
-            <fieldset>
+            <!-- <fieldset>
             <legend>Select Detecting Model For Image</legend>
             <label>
                 <input type="radio" value="Pose" name="ImageModel" />
@@ -19,7 +19,7 @@
                 <input type="radio" value="Sentiment" name="ImageModel" />
                 Sentiment Analysis
             </label>
-            </fieldset>
+            </fieldset> -->
             <p>
             <input type="file" name="file" class="form-control" autocomplete="off" required>
             </p>
@@ -35,7 +35,7 @@
     {% endif %}
     <form method="post" action="/processingVideo" enctype="multipart/form-data">
         <dl><h3 class="mt-5">Video</h3>
-            <fieldset>
+            <!-- <fieldset>
             <legend>Select Detecting Model For Video</legend>
             <label>
                 <input type="radio" value="Pose" name="VideoModel" />
@@ -45,7 +45,7 @@
                 <input type="radio" value="Sentiment" name="VideoModel" />
                 Sentiment Analysis
             </label>
-            </fieldset>
+            </fieldset> -->
             <p>
             <input type="file" name="file" class="form-control" autocomplete="off" required>
             </p>
@@ -61,7 +61,7 @@
         <div class="col-lg-8  offset-lg-2">
             <form method="post" action="/video_feed">
             <legend><h3 class="mt-5">Live Streaming</h3></legend>
-            <fieldset>
+            <!-- <fieldset>
             <legend>Select Detecting Model For Video</legend>
             <label>
                 <input type="radio" value="Pose" name="LiveModel" />
@@ -71,7 +71,7 @@
                 <input type="radio" value="Sentiment" name="LiveModel" />
                 Sentiment Analysis
             </label>
-            </fieldset>
+            </fieldset> -->
             <input type="submit" value="LIVE" name="action1"/>
             </form>
             <img src="{{ url_for('video_feed') }}" height="100%" onerror='this.style.display = "none"'>
